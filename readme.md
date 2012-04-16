@@ -4,6 +4,18 @@ For smaller projects you might not need a something like requirejs.
 You'll just want to load javascript, and know when it's loaded.
 That's all that Simple Javascript Loader does.
 
+## Why would you want to use a javascript loader?
+
+When a browser parses your html and finds a script tags, the browser stops rendering,
+loads the script, interprets what needs to be done. When that's done it continues parsing.
+It does that for EVERY script tag it encounters.
+
+In a lot of cases javascript isn't dependent on another piece of javascript. In that case loading
+those files side by side improves your sites performance quite a bit. This is what Simple Javascript
+Loader does.
+
+Even when you're loading just 3 javascript files, SJL will decrease the loadtime.
+
 ## Setup
 
 First of all, you'll need to include `sjl.min.js` to your project:
