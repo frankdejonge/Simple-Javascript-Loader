@@ -87,4 +87,38 @@ sjl.load(function(){
 });
 ```
 
+## Loading in sequence
+
+Loading in sequence might just be the easiest way to handle javascript dependancies in SJL.
+
+The `.sequence` method (or `.seq` for short) handles three kinds of arguments. Arrays, strings
+and anonymous functions. Each part of the arguments is handles in sequence. 
+
+- __String__<br/>Load a single javascript file.
+- __Array__<br/>Load a group of javascript files. (Side by side for extra speed.)
+- __Anonymous function__<br/>Fired in sequence.
+
+Here is an example of how to use it:
+
+```javascript
+sjl.seq(
+	[
+		'/assets/js/libs/jquery.js',
+		'/assets/js/libs/underscore.js',
+		'/assets/js/libs/modernizr.js'
+	],
+	function(){
+		// base libs loaded when this is fired
+	},
+	[
+		'/assets/js/libs/hogan.js',
+		'/assets/js/libs/backbone.js',
+	],
+	function(){
+		// libs with dependancies are loaded
+		// when this is fired
+	}
+);
+```
+
 ### The end...
