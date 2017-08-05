@@ -22,6 +22,7 @@
 		this.loaded = [];
 		this.instack = [];
 		this.fired = [];
+		this.forceFireCallback = false;
 	};
 
 	// Add, adds scripts to a load stack
@@ -55,10 +56,11 @@
 	};
 
 	// Load, loads the current stack and increments the stack pointer
-	Sjl.prototype.load = function(scripts, callback)
+	Sjl.prototype.load = function(scripts, callback, forceFireCallback)
 	{
 		var _stack = this.stack;
 		this.loaded[_stack] = 0;
+		this.forceFireCallback = forceFireCallback || false;
 
 		if(is_function(scripts))
 		{
@@ -152,7 +154,7 @@
 	// fireCallback, checks if there is a callback and fires it.
 	Sjl.prototype.fireCallback = function(_stack)
 	{
-		if( ! this.fired[_stack] && is_function(this.callbacks[_stack]))
+		if(( ! this.fired[_stack] || this.forceFireCallback) && is_function(this.callbacks[_stack]))
 		{
 			this.fired[_stack] = true;
 			this.callbacks[_stack].call();
@@ -179,7 +181,7 @@
 		return toString.call(arr) === '[object Array]';
 	};
 
-	// check wether the an items is found in an array	
+	// check wether the an items is found in an array
 	function in_array(arr, item)
 	{
 		if( ! is_array(arr))
